@@ -5,6 +5,10 @@ const db_conn = require("../db_conn");
 async function register(req, res) {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res.json({success: false, message: "Merci de remplir tout les champs."})
+  }
+
   db_conn();
 
   const user = new User({ email: email, password: password});
