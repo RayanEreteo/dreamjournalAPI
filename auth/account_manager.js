@@ -3,8 +3,8 @@ const db_conn = require("../db_conn");
 const bcrypt = require("bcrypt");
 
 async function register(req, res) {
-  // récupération de l'email et le mot de passe dnas le corps de la requête.
-  const { email, password } = req.body;
+  // récupération des données dans le corps de la requête.
+  const { email, password, dream_capability } = req.body;
 
   // on vérifie si l'email et le mot de passe sont bien rentrée.
   if (!email || !password) {
@@ -32,7 +32,7 @@ async function register(req, res) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   // création du nouvelle utilisateur
-  const new_user = new User({ email: email, password: hashedPassword });
+  const new_user = new User({ email: email, password: hashedPassword, dream_capability:  dream_capability});
 
   // envoie de l'utilisateur dans la base de donnée
   new_user.save();

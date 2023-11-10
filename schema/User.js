@@ -10,6 +10,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    dream_capability: {
+        type: String,
+        required: true
+    }
 })
 
 module.exports = mongoose.model("Users", userSchema)
