@@ -1,5 +1,5 @@
 const User = require("../schema/User");
-const EmailVerifierCode = require("../schema/EmailVerifierCode")
+const EmailVerifierCode = require("../schema/EmailVerifierCode");
 
 const db_conn = require("../db_conn");
 const bcrypt = require("bcrypt");
@@ -34,13 +34,18 @@ async function register(req, res) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   // création du nouvelle utilisateur
-  const new_user = new User({ email: email, password: hashedPassword, dream_capability:  dream_capability, active: false});
+  const new_user = new User({
+    email: email,
+    password: hashedPassword,
+    dream_capability: dream_capability,
+    active: false,
+  });
 
   // envoie de l'utilisateur dans la base de donnée
   new_user.save();
 
   return res.json({
-    success: true
+    success: true,
   });
 }
 
@@ -55,7 +60,7 @@ async function login(req, res) {
       message: "Merci de remplir tout les champs.",
     });
   }
-  
+
   // connexion a la base de donnée
   db_conn();
 
@@ -68,15 +73,14 @@ async function login(req, res) {
     });
   }
 
-
   if (userExist.active == false) {
     return res.json({
       success: false,
       message: "Merci de vérifier votre email",
     });
   }
-  
-  //! Besoin de créer la fontction du jwt 
+
+  //! Besoin de créer la fontction du jwt
 
   return res.json({
     success: true,
