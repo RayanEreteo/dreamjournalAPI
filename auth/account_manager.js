@@ -16,7 +16,7 @@ async function register(req, res) {
 
   // connexion a la base de donnée
   db_conn();
-
+  
   // on vérifie si l'email est déja utilisée
   const userExist = await User.findOne({ email: email });
 
