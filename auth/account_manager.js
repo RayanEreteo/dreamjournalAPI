@@ -66,6 +66,13 @@ async function login(req, res) {
     });
   }
 
+
+  if (userExist.active == false) {
+    return res.json({
+      success: false,
+      message: "Merci de vérifier votre email",
+    });
+  }
   
   //! Besoin de créer la fontction du jwt 
 
