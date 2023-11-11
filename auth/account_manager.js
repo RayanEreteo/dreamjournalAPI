@@ -23,7 +23,7 @@ async function register(req, res) {
   if (userExist != null) {
     return res.json({
       success: false,
-      message: "L'email entrée est deja utilisée",
+      message: "L'email entré est déjà utilisé",
     });
   }
 
@@ -32,7 +32,7 @@ async function register(req, res) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   // création du nouvelle utilisateur
-  const new_user = new User({ email: email, password: hashedPassword, dream_capability:  dream_capability});
+  const new_user = new User({ email: email, password: hashedPassword, dream_capability:  dream_capability, active: false});
 
   // envoie de l'utilisateur dans la base de donnée
   new_user.save();
@@ -62,7 +62,7 @@ async function login(req, res) {
   if (userExist == null) {
     return res.json({
       success: false,
-      message: "L'email entrée est associé a aucun compte",
+      message: "L'email entré est associé à aucun compte",
     });
   }
 

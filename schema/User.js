@@ -13,7 +13,8 @@ const userSchema = mongoose.Schema({
     dream_capability: {
         type: String,
         required: true
-    }
+    },
+    active: Boolean
 })
 
 module.exports = mongoose.model("Users", userSchema)
