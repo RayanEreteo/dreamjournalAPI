@@ -37,14 +37,42 @@ async function register(req, res) {
   // envoie de l'utilisateur dans la base de donnée
   new_user.save();
 
-  res.json({
-    success: true,
-    message: "Le compte a été crée avec succès. Redirection....",
+  return res.json({
+    success: true
   });
 }
 
 async function login(req, res) {
-  res.send("test");
+  // récupération des données dans le corps de la requête.
+  const { email, password } = req.body;
+
+  // on vérifie si l'email et le mot de passe sont bien rentrée.
+  if (!email || !password) {
+    return res.json({
+      success: false,
+      message: "Merci de remplir tout les champs.",
+    });
+  }
+  
+  // connexion a la base de donnée
+  db_conn();
+
+  const userExist = await User.findOne({ email: email });
+
+  if (userExist == null) {
+    return res.json({
+      success: false,
+      message: "L'email entrée est associé a aucun compte",
+    });
+  }
+
+  
+  //! Besoin de créer la fontction du jwt 
+
+  return res.json({
+    success: true,
+    message: "Connexion réussi. Redirection....",
+  });
 }
 
 async function delete_account(req, res) {
