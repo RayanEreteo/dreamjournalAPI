@@ -1,4 +1,6 @@
 const User = require("../schema/User");
+const EmailVerifierCode = require("../schema/EmailVerifierCode")
+
 const db_conn = require("../db_conn");
 const bcrypt = require("bcrypt");
 
@@ -16,7 +18,7 @@ async function register(req, res) {
 
   // connexion a la base de donnée
   db_conn();
-  
+
   // on vérifie si l'email est déja utilisée
   const userExist = await User.findOne({ email: email });
 
