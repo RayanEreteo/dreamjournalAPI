@@ -13,7 +13,7 @@ app.use(body_parser.json())
 app.post("/register", account_manager.register)
 app.post("/login", account_manager.login)
 
-app.post("/verify", email_verifier.verify)
+app.get("/verify/:code", email_verifier.verify)
 
 
 app.listen('5000', (err) => {
