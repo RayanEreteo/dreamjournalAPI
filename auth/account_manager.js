@@ -3,6 +3,7 @@ const EmailVerifierCode = require("../schema/EmailVerifierCode");
 
 const db_conn = require("../db_conn");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer")
 
 async function register(req, res) {
   // récupération des données dans le corps de la requête.
@@ -41,8 +42,35 @@ async function register(req, res) {
     active: false,
   });
 
-  // envoie de l'utilisateur dans la base de donnée
+  const verificationCode = Math.random().toString(36).substring(7);
+
+  const new_email_code = new EmailVerifierCode({code: verificationCode, relatedEmail: email})
+
+  // envoie de l'utilisateur et du code de vérification dans la base de donnée
   new_user.save();
+  new_email_code.save();
+
+  // envoie de l'email contenant le code de vérification
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "rayabf5@gmail.com",
+      pass: "vqmg bkxy uuth maqk"
+    }
+  })
+
+  const mailOptions = {
+    from: "rayabf5@gmail.com",
+    to: email,
+    subject: "Email Verification",
+    text: `Merci de cliquer sur ce lien pour vérifier votre email: http://your-verification-url/${verificationCode}`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error)
+    }
+  })
 
   return res.json({
     success: true,
