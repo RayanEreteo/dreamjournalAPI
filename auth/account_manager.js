@@ -10,7 +10,7 @@ async function register(req, res) {
   const { email, password, dream_capability } = req.body;
 
   // on vérifie si l'email et le mot de passe sont bien rentrée.
-  if (!email || !password) {
+  if (!email || !password || !dream_capability) {
     return res.json({
       success: false,
       message: "Merci de remplir tout les champs.",
@@ -42,9 +42,9 @@ async function register(req, res) {
     active: false,
   });
 
-  const verificationCode = Math.random().toString(36).substring(7);
-
-  const new_email_code = new EmailVerifierCode({code: verificationCode, relatedEmail: email})
+  // creation du code de vérification
+  const verification_code = Math.random().toString(36).substring(7);
+  const new_email_code = new EmailVerifierCode({code: verification_code, relatedEmail: email})
 
   // envoie de l'utilisateur et du code de vérification dans la base de donnée
   new_user.save();
@@ -63,7 +63,7 @@ async function register(req, res) {
     from: "rayabf5@gmail.com",
     to: email,
     subject: "Email Verification",
-    text: `Merci de cliquer sur ce lien pour vérifier votre email: http://your-verification-url/${verificationCode}`
+    text: `Merci de cliquer sur ce lien pour vérifier votre email: http://localhost:5000/verify?code=${verification_code}`
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
