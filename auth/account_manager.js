@@ -101,6 +101,8 @@ async function login(req, res) {
     });
   }
 
+  //! Besoin de vérifier le mdp
+
   if (userExist.active == false) {
     return res.json({
       success: false,
