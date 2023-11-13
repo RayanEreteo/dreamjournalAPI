@@ -4,6 +4,7 @@ const EmailVerifierCode = require("../schema/EmailVerifierCode");
 const db_conn = require("../db_conn");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
+const jwt = require("jsonwebtoken")
 
 async function register(req, res) {
   // récupération des données dans le corps de la requête.
@@ -117,11 +118,14 @@ async function login(req, res) {
     });
   }
 
-  //! Besoin de créer la fontction du jwt
+  //! fonction login
+
+  const token = jwt.sign({email: email}, "test")
 
   return res.json({
     success: true,
     message: "Connexion réussi. Redirection....",
+    token: token
   });
 }
 
