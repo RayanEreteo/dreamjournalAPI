@@ -92,18 +92,25 @@ async function login(req, res) {
   // connexion a la base de donnée
   db_conn();
 
-  const userExist = await User.findOne({ email: email });
+  const user = await User.findOne({ email: email });
 
-  if (userExist == null) {
+  if (user == null) {
     return res.json({
       success: false,
       message: "L'email entré est associé à aucun compte",
     });
   }
 
-  //! Besoin de vérifier le mdp
+  const passwordGood = await bcrypt.compare(password, user.password)
 
-  if (userExist.active == false) {
+  if (!passwordGood) {
+    return res.json({
+      success: false,
+      message: "Le mot de passe est incorrect",
+    });
+  }
+
+  if (user.active == false) {
     return res.json({
       success: false,
       message: "Merci de vérifier votre email",
