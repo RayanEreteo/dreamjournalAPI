@@ -125,7 +125,8 @@ async function login(req, res) {
   return res.json({
     success: true,
     message: "Connexion réussi. Redirection....",
-    token: token
+    token: token,
+    user_data: {email: email}
   });
 }
 

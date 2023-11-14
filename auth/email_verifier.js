@@ -29,8 +29,7 @@ async function verify(req, res) {
   await EmailVerifierCode.deleteOne(verification_code)
   await User.updateOne({email: relatedEmail}, {$set: {active: true}})
 
-  return res.send("votre email a été validé, vous pouvez maintenant vous connecter : ")
-
+  return res.send("votre email a été validé, vous pouvez maintenant vous connecter :")
 }
 
 module.exports = { verify };
