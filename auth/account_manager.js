@@ -92,8 +92,6 @@ async function login(req, res) {
     });
   }
 
-  //! fonction login
-
   const token = jwt.sign({email: email}, "test")
 
   return res.json({
