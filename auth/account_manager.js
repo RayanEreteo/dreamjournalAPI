@@ -3,8 +3,8 @@ const EmailVerifierCode = require("../schema/EmailVerifierCode");
 
 const db_conn = require("../db_conn");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const send_email = require("./send_email");
 
 async function register(req, res) {
   // récupération des données dans le corps de la requête.
@@ -52,26 +52,7 @@ async function register(req, res) {
   new_email_code.save();
 
   // envoie de l'email contenant le code de vérification
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "rayabf5@gmail.com",
-      pass: "vqmg bkxy uuth maqk"
-    }
-  })
-
-  const mailOptions = {
-    from: "rayabf5@gmail.com",
-    to: email,
-    subject: "DreamKeeper | Votre lien de vérification",
-    text: `Merci de cliquer sur ce lien pour vérifier votre email: http://localhost:5000/verify?code=${verification_code}`
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error)
-    }
-  })
+  send_email(email);
 
   return res.json({
     success: true,
