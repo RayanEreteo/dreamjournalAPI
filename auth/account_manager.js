@@ -63,7 +63,7 @@ async function register(req, res) {
   const mailOptions = {
     from: "rayabf5@gmail.com",
     to: email,
-    subject: "Email Verification",
+    subject: "DreamKeeper | Votre lien de vérification",
     text: `Merci de cliquer sur ce lien pour vérifier votre email: http://localhost:5000/verify?code=${verification_code}`
   };
 
@@ -98,7 +98,7 @@ async function login(req, res) {
   if (user == null) {
     return res.json({
       success: false,
-      message: "L'email entré est associé à aucun compte",
+      message: "L'email entré est associé à aucun compte.",
     });
   }
 
@@ -107,14 +107,14 @@ async function login(req, res) {
   if (!passwordGood) {
     return res.json({
       success: false,
-      message: "Le mot de passe est incorrect",
+      message: "Le mot de passe est incorrect.",
     });
   }
 
   if (user.active == false) {
     return res.json({
       success: false,
-      message: "Merci de vérifier votre email",
+      message: "Merci de vérifier votre email.",
     });
   }
 
