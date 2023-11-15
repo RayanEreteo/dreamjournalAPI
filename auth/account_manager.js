@@ -1,10 +1,9 @@
 const User = require("../schema/User");
 const EmailVerifierCode = require("../schema/EmailVerifierCode");
 
-const db_conn = require("../db_conn");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const send_email = require("./send_email");
+const send_email = require("../send_email");
 
 async function register(req, res) {
   // récupération des données dans le corps de la requête.
@@ -17,9 +16,6 @@ async function register(req, res) {
       message: "Merci de remplir tout les champs.",
     });
   }
-
-  // connexion a la base de donnée
-  db_conn();
 
   // on vérifie si l'email est déja utilisée
   const userExist = await User.findOne({ email: email });
@@ -70,9 +66,6 @@ async function login(req, res) {
       message: "Merci de remplir tout les champs.",
     });
   }
-
-  // connexion a la base de donnée
-  db_conn();
 
   const user = await User.findOne({ email: email });
 
