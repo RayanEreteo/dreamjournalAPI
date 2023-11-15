@@ -52,7 +52,7 @@ async function register(req, res) {
   new_email_code.save();
 
   // envoie de l'email contenant le code de vérification
-  send_email(email);
+  send_email(email, verification_code);
 
   return res.json({
     success: true,
