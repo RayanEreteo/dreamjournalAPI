@@ -20,9 +20,8 @@ app.post("/register", account_manager.register)
 app.post("/login", account_manager.login)
 
 // ressource protégé
-
-app.post("/protectedpath", token_verify, (req, res) => {
-    res.send("autorisé")
+app.post("/tokenchecker", token_verify, (req, res) => {
+    res.send("ressource autorisée, utilisateur : " + req.body.decoded.email)
 })
 
 
