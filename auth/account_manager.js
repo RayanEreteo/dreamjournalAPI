@@ -100,7 +100,7 @@ async function login(req, res) {
     success: true,
     message: "Connexion réussi. Redirection....",
     token: token,
-    user_data: {email: email}
+    user_data: {email: email, dream_capability: user.dream_capability}
   });
 }
 
