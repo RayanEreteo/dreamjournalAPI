@@ -93,7 +93,7 @@ async function login(req, res) {
   }
 
   const token = jwt.sign({email: email}, "test", {
-    expiresIn: "10s"
+    expiresIn: "2d"
   })
 
   return res.json({
