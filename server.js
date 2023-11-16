@@ -5,6 +5,7 @@ const cors = require("cors")
 const email_verifier = require("./auth/email_verifier")
 const account_manager = require("./auth/account_manager")
 const db_conn = require("./db_conn");
+const token_verify = require("./auth/token_verify")
 
 
 const app = express()
@@ -18,8 +19,14 @@ db_conn();
 app.post("/register", account_manager.register)
 app.post("/login", account_manager.login)
 
-app.get("/verify", email_verifier)
+// ressource protégé
 
+app.post("/protectedpath", token_verify, (req, res) => {
+    res.send("autorisé")
+})
+
+
+app.get("/verify", email_verifier)
 
 app.listen('5000', (err) => {
     if (err) {
