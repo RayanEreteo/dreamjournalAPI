@@ -92,7 +92,7 @@ async function login(req, res) {
     });
   }
 
-  const token = jwt.sign({email: email}, "test", {
+  const token = jwt.sign({email: email}, sk, {
     expiresIn: "2d"
   })
 
