@@ -4,13 +4,13 @@ module.exports = function send_email(receptor, verification_code){
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "rayabf5@gmail.com",
-          pass: "vqmg bkxy uuth maqk"
+          user: process.env.GMAIL_MAIL,
+          pass: process.env.GMAIL_PASS
         }
       })
     
       const mailOptions = {
-        from: "rayabf5@gmail.com",
+        from: process.env.GMAIL_MAIL,
         to: receptor,
         subject: "DreamKeeper | Votre lien de vérification",
         text: `Merci de cliquer sur ce lien pour vérifier votre email: http://localhost:5000/verify?code=${verification_code}`
