@@ -58,6 +58,7 @@ async function register(req, res) {
 async function login(req, res) {
   // récupération des données dans le corps de la requête.
   const { email, password } = req.body;
+  const secret_key = process.env.JWT_KEY;
 
   // on vérifie si l'email et le mot de passe sont bien rentrée.
   if (!email || !password) {
@@ -92,8 +93,9 @@ async function login(req, res) {
     });
   }
 
-  const token = jwt.sign({email: email}, sk, {
+  const token = jwt.sign({email: email}, secret_key, {
     expiresIn: "2d"
+    
   })
 
   return res.json({

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = function token_verify(req, res, next) {
   const token = req.headers.authorization;
-  const secret_key = "test";
+  const secret_key = process.env.JWT_KEY;
 
   if (!token) {
     return res.status(401).json({success: false, message: "Token non identifiée."});
