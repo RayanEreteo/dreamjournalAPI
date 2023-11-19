@@ -25,7 +25,7 @@ app.post("/tokenchecker", token_verify, (req, res) => {
 
 app.get("/verify", email_verifier)
 
-app.listen('5000', (err) => {
+app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log(err)
     }else{
