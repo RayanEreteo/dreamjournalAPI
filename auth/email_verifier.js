@@ -1,5 +1,4 @@
 const EmailVerifierCode = require("../schema/EmailVerifierCode")
-const db_conn = require("../db_conn");
 const User = require("../schema/User");
 
 

@@ -110,17 +110,24 @@ async function delete_account(req, res) {
 }
 
 async function update_password(req, res){
-  const {email, newpassword} = req.body
+  const {decoded, current_password, new_password} = req.body
 
-  const user = await User.findOne(email)
+  const user = await User.findOne({email: decoded.email})
+
+  const correctPassword = await bcrypt.compare(current_password, user.password)
+
+  if (!correctPassword) {
+    return res.json({success: false, message: "Le mot de passe est incorrect"})
+  }
 
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-
+  const hashedPassword = await bcrypt.hash(new_password, salt);
 
   user.password = hashedPassword
 
-  user.save()
+  await user.save()
+
+  return res.json({success: true, message: "Mot de passe mis à jour, redirection..."})
 }
 
 module.exports = {
