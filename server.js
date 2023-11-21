@@ -18,12 +18,15 @@ db_conn();
 app.post("/register", account_manager.register)
 app.post("/login", account_manager.login)
 
+app.get("/verify", email_verifier)
+
+
 // ressource protégé
 app.post("/tokenchecker", token_verify, (req, res) => {
     res.send("ressource autorisée, utilisateur : " + req.body.decoded.email)
 })
 
-app.get("/verify", email_verifier)
+app.post("/passupdate", token_verify, account_manager.update_password)
 
 app.listen(process.env.PORT, (err) => {
     if (err) {

@@ -109,8 +109,23 @@ async function delete_account(req, res) {
   res.send("test");
 }
 
+async function update_password(req, res){
+  const {email, newpassword} = req.body
+
+  const user = await User.findOne(email)
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+
+  user.password = hashedPassword
+
+  user.save()
+}
+
 module.exports = {
   register,
   login,
   delete_account,
+  update_password
 };
