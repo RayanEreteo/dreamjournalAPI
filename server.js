@@ -15,6 +15,7 @@ app.use(body_parser.json())
 // connexion a la base de donnée
 db_conn();
 
+// ressource public
 app.post("/register", account_manager.register)
 app.post("/login", account_manager.login)
 

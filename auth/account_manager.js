@@ -136,6 +136,5 @@ async function update_password(req, res){
 module.exports = {
   register,
   login,
-  delete_account,
   update_password
 };
