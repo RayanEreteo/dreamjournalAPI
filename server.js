@@ -7,6 +7,7 @@ const email_verifier = require("./auth/email_verifier")
 const account_manager = require("./auth/account_manager")
 const db_conn = require("./db_conn");
 const token_verify = require("./auth/token_verify")
+const dreams_manager = require('./dreams_manager')
 
 const app = express()
 app.use(cors())
@@ -21,13 +22,14 @@ app.post("/login", account_manager.login)
 
 app.get("/verify", email_verifier)
 
-
 // ressource protégé
 app.post("/tokenchecker", token_verify, (req, res) => {
     res.send("ressource autorisée, utilisateur : " + req.body.decoded.email)
 })
 
 app.post("/passupdate", token_verify, account_manager.update_password)
+app.post("/create_dream", token_verify, dreams_manager.create_dream)
+
 
 app.listen(process.env.PORT, (err) => {
     if (err) {
