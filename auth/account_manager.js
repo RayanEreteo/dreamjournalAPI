@@ -105,12 +105,15 @@ async function login(req, res) {
   });
 }
 
-async function delete_account(req, res) {
-  res.send("test");
-}
-
 async function update_password(req, res){
   const {decoded, current_password, new_password} = req.body
+
+  if (!current_password || !new_password) {
+    return res.json({
+      success: false,
+      message: "Merci de remplir tout les champs.",
+    });
+  }
 
   const user = await User.findOne({email: decoded.email})
 
