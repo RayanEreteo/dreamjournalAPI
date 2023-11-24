@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const dreamSchema = mongoose.Schema({
     author: {type: String, required: true},
     dream_record: {type: String, required: true},
-    islucid: {type: String, required: true},
+    islucid: {type: Boolean, required: true},
     date: {type: String, required: true}
 })
 

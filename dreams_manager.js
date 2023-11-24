@@ -3,7 +3,7 @@ const Dream = require("./schema/Dream");
 async function create_dream(req, res) {
   const { dream_record, islucid, decoded } = req.body;
 
-  if (!dream_record || !islucid) {
+  if (!dream_record) {
     return res.json({ success: false, message: "Merci de remplir le champ." });
   }
 
