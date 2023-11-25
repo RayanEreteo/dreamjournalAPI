@@ -29,6 +29,7 @@ app.post("/tokenchecker", token_verify, (req, res) => {
 app.post("/passupdate", token_verify, account_manager.update_password)
 app.post("/create_dream", token_verify, dreams_manager.create_dream)
 app.post("/delete_dream", token_verify, dreams_manager.delete_dream)
+app.post("/fetch_dreams", token_verify, dreams_manager.fetch_dreams)
 
 
 app.listen(process.env.PORT, (err) => {

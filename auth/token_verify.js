@@ -11,7 +11,7 @@ module.exports = function token_verify(req, res, next) {
   jwt.verify(token, secret_key, (err, result) => {
     if (err) {
       console.error(err);
-      return res.status(401).json({success: false, message: "Le token est invalide."});
+      return res.status(401).json({success: false, message: "Le token est invalide, Merci de vous reconnecter."});
     }
 
     req.body.decoded = result;

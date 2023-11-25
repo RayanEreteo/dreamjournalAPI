@@ -94,7 +94,7 @@ async function login(req, res) {
   }
 
   const token = jwt.sign({email: email, dream_capability: user.dream_capability}, secret_key, {
-    expiresIn: "2d"
+    expiresIn: "30s"
   })
 
   return res.json({
