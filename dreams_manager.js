@@ -35,7 +35,11 @@ async function fetch_dreams(req, res) {
 }
 
 async function delete_dream(req, res) {
-  res.send("reve supprimé");
+  const {dream_id} = req.body
+
+  await Dream.deleteOne({_id: dream_id})
+
+  return res.json({success: true})
 }
 
 module.exports = {
